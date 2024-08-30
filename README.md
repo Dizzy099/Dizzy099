@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @Dizzy099
+- 👋 Hi, I’m Awanish Mishra
 - 👀 I’m interested in Web and Software development
 - 🌱 I’m currently learning C++ and DSA, HTML,CSS and Javascript
 - 💞️ I’m looking to collaborate on web development projects
