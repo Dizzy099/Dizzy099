@@ -1,109 +1,78 @@
-# 👋 Hi, I'm Awanish Mishra
+# Hi, I'm Awanish Mishra
 
-🚀 **Software Engineer | Full-Stack Developer | ML & Automation Engineer**
-📍 Noida, India
+**AI/LLM Application Engineer | Backend Engineer | Python, Django, FastAPI**
 
-I build scalable software systems, automation pipelines, and AI-powered applications that solve real-world problems.
-Currently working on production-grade platforms involving **microservices, APIs, and intelligent automation**.
+I build production LLM systems: multi-provider orchestration, RAG-backed knowledge workflows, agentic tooling, and the backend infrastructure needed to ship AI features reliably.
 
----
+Currently, I work on the backend of **tingg.ai**, a multi-tenant AI content-generation SaaS. My focus is the less glamorous part of AI engineering: routing, retries, eval thinking, token/cost metering, idempotency, feature flags, and failure handling.
 
-## 💡 About Me
+- Location: Noida, India
+- Open to: AI Engineer, LLM Application Engineer, GenAI Engineer, AI Backend Engineer
+- Contact: [awanishmishra245@gmail.com](mailto:awanishmishra245@gmail.com)
+- LinkedIn: [linkedin.com/in/awanish-mishra](https://linkedin.com/in/awanish-mishra)
 
-* 💻 Software Engineer shipping real production systems
-* 🤖 Interested in **AI, Backend Engineering & Scalable Web Systems**
-* ⚙️ Experience building **API Gateways (40+ endpoints)** and automation platforms
-* 📊 Built systems processing **1000+ real-time submissions**
-* 🎯 GATE Qualified — Data Science & AI
-* 🌱 Currently improving **DSA, System Design & Advanced Backend Architecture**
+## What I Work On
 
----
+```mermaid
+flowchart LR
+    Product[AI product feature] --> API[Python API layer]
+    API --> Router[LLM provider router]
+    Router --> Claude[Claude]
+    Router --> OpenAI[OpenAI]
+    Router --> Gemini[Gemini]
+    Router --> DeepSeek[DeepSeek]
+    API --> RAG[RAG / brand knowledge]
+    API --> Agents[Tool-calling agents]
+    API --> Jobs[Celery async jobs]
+    Jobs --> Media[Image / video generation]
+    API --> Metering[Token, cost, latency audit trail]
+    API --> Flags[Feature flags and rollout controls]
+```
 
-## 🛠️ Tech Stack
+## Production Experience
 
-### 👨‍💻 Languages
+- Built and maintained backend systems for a multi-tenant AI SaaS with roughly **200 REST endpoints**, **99 models**, **6 Django apps**, and **270+ test files**.
+- Engineered **multi-provider LLM orchestration** with fallback routing across Claude, OpenAI, Gemini, and DeepSeek.
+- Implemented a **DAG-based AI workflow engine** for LLM, image, and video nodes with idempotent reruns, cancellation, and async execution.
+- Built a **RAG-backed brand knowledge base** with ingestion, chunking, extraction, tagging, distillation, retrieval, and prompt-context injection.
+- Developed **agentic features** including a tool-registry conversational agent and an autonomous template-authoring agent with validate/repair loops.
+- Added **LLM observability and metering**: per-call token, cost, and latency audit trails, credit gating, and encrypted BYOK provider credentials.
 
-`Python` • `JavaScript` • `C++` • `SQL` • `HTML` • `CSS`
+## Current Public Portfolio Work
 
-### ⚙️ Backend & Frameworks
+I am rebuilding the patterns from my private production work as public, non-proprietary projects:
 
-`Django` • `FastAPI` • `Flask` • `Node.js` • REST APIs • Microservices
+| Project | Status | What it demonstrates |
+|---|---:|---|
+| `relay` | Designing | DAG-based LLM workflow engine with LangGraph, provider fallback, RAG nodes, evals, cost tracking, FastAPI/SSE, Docker, and MCP |
+| `production-llm-systems-writeup` | Drafting | Architecture-level writeup of production LLM patterns: routing, RAG, agents, observability, rollout safety |
+| `Glove-Compliance-Detection-System-` | Polishing | Computer vision pipeline, batch inference, JSON logging, annotated outputs, production-style README |
+| `Fastapi-Smart-Banner` | Polishing | FastAPI service design and backend API practices |
 
-### 🌐 Frontend
+## Technical Stack
 
-`React` • `Next.js` • Responsive Web Design
+**AI / LLM:** LLM orchestration, fallback routing, RAG pipelines, tool/function calling, structured outputs, prompt engineering, token/cost/latency auditing, AI image and video generation  
+**Backend:** Python, Django, Django REST Framework, FastAPI, Flask, Celery, RabbitMQ, REST APIs, OpenAPI, JWT auth, RBAC, multi-tenant SaaS, webhooks  
+**Cloud / DevOps:** AWS EC2, AWS S3, GCP, Docker, Jenkins CI/CD, Gunicorn, feature-flagged rollouts  
+**Databases:** PostgreSQL, MySQL, SQLite  
+**Testing / Automation:** pytest, Playwright, Selenium, RPA, n8n, web scraping  
+**Frontend:** React, Next.js, JavaScript
 
-### 🤖 AI / ML
+## Writing Roadmap
 
-`Scikit-learn` • NLP • LLM Workflows • Recommendation Systems • Feature Engineering
+I am publishing notes from real production work, stripped of proprietary details:
 
-### ☁️ Cloud & DevOps
+- Designing a multi-provider LLM fallback chain: what breaks in production
+- RAG ingestion is five problems, not one: parse, chunk, extract, tag, distill
+- Metering LLM cost per call: token audit trails and credit ledgers
+- Building agents that validate and repair their own outputs
 
-`AWS (EC2, S3)` • `Docker` • CI/CD • API Integration • Automation
+## Signals
 
-### 🗄️ Databases
+- GATE Qualified - Data Science & AI, 2025
+- Harvard CS50x - Computer Science
+- B.Tech Computer Science & Engineering, 80%
 
-`PostgreSQL` • `MySQL` • `SQLite` • NoSQL
+## What I Am Looking For
 
----
-
-## 💼 Experience
-
-### Software Engineer — The Higher Pitch (2025–Present)
-
-* Built **audio validation system** processing 1000+ submissions with real-time quality checks
-* Architected API Gateway integrating **40+ endpoints**
-* Converted Python scripts into scalable Django microservices (**40% performance improvement**)
-* Automated content workflows saving **10+ hours/week**
-
-### Software Developer — Vatsa Enterprises
-
-* Redesigned e-commerce platform with microservices architecture
-* Increased user engagement by **130%**
-* Built RPA automation reducing manual processing by **50%**
-
----
-
-## 🚀 Featured Projects
-
-### 🔹 AdFusion — AI Recommendation System
-
-Hybrid recommendation engine using NLP + collaborative filtering deployed on AWS.
-
-### 🔹 Audio Analytics Platform
-
-Real-time ML classification system with monitoring and feature engineering pipeline.
-
-### 🔹 Content Automation Engine
-
-Fault-tolerant NLP processing pipeline built using FastAPI and Docker.
-
----
-
-## 🏆 Achievements
-
-* ✅ **GATE Qualified — Data Science & AI (2025)**
-* 🎓 Harvard CS50x Certification
-* 🥇 Top 5 — College Hackathon (ML Solution)
-
----
-
-## 🤝 Open to Collaborate On
-
-* Web Applications
-* Backend Systems
-* AI/ML Projects
-* Automation Tools
-* Open Source Contributions
-
----
-
-## 📫 Connect With Me
-
-📧 **Email:** [awanishmishra245@gmail.com](mailto:awanishmishra245@gmail.com)
-🔗 **GitHub:** https://github.com/Dizzy099
-🔗 **LinkedIn:** https://linkedin.com/in/awanish-mishra-08aa0322a
-
----
-
-⭐ *If you like my work, consider giving a star to my repositories!*
+I am looking for AI product teams where backend reliability matters as much as model capability: agent products, RAG systems, LLM platforms, AI SaaS, workflow automation, and Python-heavy backend teams building with LLMs.
