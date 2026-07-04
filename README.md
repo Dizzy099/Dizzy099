@@ -9,7 +9,7 @@ Currently, I work on the backend of **tingg.ai**, a multi-tenant AI content-gene
 - Location: Noida, India
 - Open to: AI Engineer, LLM Application Engineer, GenAI Engineer, AI Backend Engineer
 - Contact: [awanishmishra245@gmail.com](mailto:awanishmishra245@gmail.com)
-- LinkedIn: [linkedin.com/in/awanish-mishra](https://linkedin.com/in/awanish-mishra)
+- LinkedIn: [linkedin.com/in/awanish-mishra](https://linkedin.com/in/awanish-mishra-08aa0322a/)
 
 ## What I Work On
 
