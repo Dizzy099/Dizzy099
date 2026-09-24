@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 378" width="760" height="378" role="img" aria-labelledby="t d">
+<title id="t">Awanish Mishra, backend engineer for AI products</title>
+<desc id="d">A terminal tracing one AI workflow request: idempotency lock, DAG plan, provider fallback from Claude to OpenAI, Celery queue, and usage metering, ending in HTTP 200.</desc>
+<style>
+  text { font-family: ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; font-size: 17px; }
+  .ln { animation: in .35s ease-out backwards; }
+  .cur { animation: blink 1.1s steps(1) infinite; }
+  @keyframes in { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .ln { animation: none; } .cur { animation: none; } }
+</style>
+<rect x="1" y="1" width="758" height="376" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+<path d="M1 13a12 12 0 0 1 12-12h734a12 12 0 0 1 12 12v27H1z" fill="#161b22"/>
+<line x1="1" y1="40" x2="759" y2="40" stroke="#30363d"/>
+<circle cx="24" cy="21" r="6" fill="#ff5f57"/><circle cx="44" cy="21" r="6" fill="#febc2e"/><circle cx="64" cy="21" r="6" fill="#28c840"/>
+<text x="380.0" y="26" text-anchor="middle" fill="#8b949e" style="font-size:14px">awanish@prod: ~</text>
+<text class="ln" style="animation-delay:0.25s" x="36" y="78" xml:space="preserve"><tspan fill="#8b949e">$ </tspan><tspan fill="#e6edf3">whoami</tspan></text>
+<text class="ln" style="animation-delay:0.57s" x="36" y="105" xml:space="preserve"><tspan fill="#58a6ff">Awanish Mishra</tspan><tspan fill="#e6edf3"> · backend engineer, AI products</tspan></text>
+<text class="ln" style="animation-delay:1.21s" x="36" y="159" xml:space="preserve"><tspan fill="#8b949e">$ </tspan><tspan fill="#e6edf3">trace </tspan><tspan fill="#d29922">POST /workflows/run</tspan></text>
+<text class="ln" style="animation-delay:1.53s" x="36" y="186" xml:space="preserve"><tspan fill="#8b949e">  lock   </tspan><tspan fill="#e6edf3">idempotency key held         </tspan><tspan fill="#3fb950">ok</tspan></text>
+<text class="ln" style="animation-delay:1.85s" x="36" y="213" xml:space="preserve"><tspan fill="#8b949e">  plan   </tspan><tspan fill="#e6edf3">DAG: llm → image → video     </tspan><tspan fill="#3fb950">ok</tspan></text>
+<text class="ln" style="animation-delay:2.17s" x="36" y="240" xml:space="preserve"><tspan fill="#8b949e">  route  </tspan><tspan fill="#e6edf3">claude 503 → openai          </tspan><tspan fill="#d29922">fallback</tspan></text>
+<text class="ln" style="animation-delay:2.49s" x="36" y="267" xml:space="preserve"><tspan fill="#8b949e">  queue  </tspan><tspan fill="#e6edf3">celery, acks_late            </tspan><tspan fill="#3fb950">ok</tspan></text>
+<text class="ln" style="animation-delay:2.81s" x="36" y="294" xml:space="preserve"><tspan fill="#8b949e">  meter  </tspan><tspan fill="#e6edf3">tokens · cost · latency      </tspan><tspan fill="#3fb950">logged</tspan></text>
+<text class="ln" style="animation-delay:3.13s" x="36" y="321" xml:space="preserve"><tspan fill="#3fb950">✓ 200 </tspan><tspan fill="#8b949e">correct on the bad day, not just the demo</tspan></text>
+<rect class="cur" x="515" y="306" width="10" height="19" fill="#58a6ff"/>
+</svg>
