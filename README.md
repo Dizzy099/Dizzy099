@@ -1,129 +1,354 @@
-<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg">
+  <img src="assets/hero-light.svg" width="100%" alt="Terminal trace of one AI workflow request: idempotency lock held, DAG planned, Claude returns 503 and the router falls back to OpenAI, the job is queued on Celery, and tokens, cost and latency are logged. It ends: 200, correct on the bad day, not just the demo. The trace is illustrative.">
+</picture>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=3200&pause=900&color=1A56A8&center=true&vCenter=true&width=720&lines=Backend+Engineer+%7C+Production+LLM+Systems;Python+%C2%B7+Django+%C2%B7+FastAPI+%C2%B7+Celery+%C2%B7+Node.js;Multi-provider+LLM+orchestration+%26+RAG;I+ship+the+unglamorous+parts+that+keep+AI+features+up" alt="Backend engineer, production LLM systems" />
+<p align="center">
+  <a href="#about"><code>GET /about</code></a> ·
+  <a href="#work"><code>GET /work</code></a> ·
+  <a href="#incident-log"><code>GET /incidents</code></a> ·
+  <a href="#projects"><code>GET /projects</code></a> ·
+  <a href="#stack"><code>GET /stack</code></a> ·
+  <a href="#contact"><code>POST /contact</code></a>
+</p>
 
-### Awanish Mishra
+## About
 
-**AI / LLM Application Engineer · Backend Engineer**
+I'm **Awanish Mishra**, a backend engineer in Noida. I build the Python side of AI products:
+the workflow engines, provider routing, async jobs and usage metering behind the "generate"
+button.
 
-[![Email](https://img.shields.io/badge/Email-awanishmishra245@gmail.com-1A56A8?style=flat-square&logo=gmail&logoColor=white)](mailto:awanishmishra245@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-awanish--mishra-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/awanish-mishra-08aa0322a/)
-[![Location](https://img.shields.io/badge/Noida,%20India-open%20to%20relocation-555?style=flat-square&logo=googlemaps&logoColor=white)](#)
-[![GATE](https://img.shields.io/badge/GATE%20Qualified-Data%20Science%20%26%20AI%202025-success?style=flat-square&logo=google-scholar&logoColor=white)](#)
+Most of my work goes into what happens when things fail: a double-clicked button, a dead
+worker, a model provider returning 503, a bill that has to add up. That's where I spend most
+of my effort.
 
-</div>
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <b>Now</b><br>
+      Associate Software Engineer at <b>The Higher Pitch</b>, on the backend of
+      <b>tingg.ai</b>, a multi-tenant AI content SaaS.
+    </td>
+    <td valign="top" width="50%">
+      <b>Also</b><br>
+      Freelance full-stack work on
+      <a href="https://vatsaenterprises.in">vatsaenterprises.in</a>, a live e-commerce store:
+      Node.js, Express, MongoDB and Angular.
+    </td>
+  </tr>
+</table>
 
----
+> [!NOTE]
+> Nearly all of my production code lives in private employer repositories. This page describes
+> that work as patterns and decisions. It contains no proprietary code, data, internal hostnames
+> or client details.
 
-I build **production LLM systems**: multi-provider orchestration, RAG-backed knowledge workflows,
-agentic tooling, and the backend infrastructure needed to ship AI features reliably.
+## Work
 
-Currently on the backend of **tingg.ai**, a multi-tenant AI content-generation SaaS. My focus is the
-less glamorous half of AI engineering — routing, retries, evals, token/cost metering, idempotency,
-feature flags and failure handling.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/pipeline-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/pipeline-light.svg">
+  <img src="assets/pipeline-light.svg" width="80%" alt="The shape of the AI backends I build. A request passes six stages: 1, API and tenant auth (DRF, RBAC, workspace scoping, audit log). 2, idempotency guard (row locks, keys, state-aware retry). 3, workflow planner (a DAG of LLM, image and video nodes). 4, provider router (Claude, then OpenAI, Gemini, DeepSeek). 5, async workers (Celery, late acks, stuck-job reaper). 6, usage ledger (tokens, cost and latency per call, credits).">
+</picture>
 
-> Most of my strongest work lives in private employer repositories. What is public here is the
-> smaller half: side projects, and the patterns I am rebuilding in the open.
+<details open>
+<summary><b>The Higher Pitch</b> · Associate Software Engineer · Oct 2025 – present <sub>(intern Apr – Sep 2025)</sub></summary>
 
-## Tech
+<br>
 
-<div align="center">
+**tingg.ai**: businesses upload their brand documents, then generate on-brand posts, carousels,
+images and videos through configurable AI workflows. I'm one of its backend engineers.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![DRF](https://img.shields.io/badge/DRF-A30000?style=for-the-badge&logo=django&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Celery](https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white)
-![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+- **Workflow engine.** Templates are DAGs (directed acyclic graphs) of LLM, image, video and
+  scraper nodes, run through a four-provider fallback chain (Claude → OpenAI → Gemini →
+  DeepSeek). I worked on the planner and the chain, and closed paths that silently bypassed
+  the fallback. A database-backed model registry means a new model is switched on from the
+  admin panel, with no deploy.
+- **Retrieval without a vector database.** Weighted full-text search supplies brand context.
+  Embedding similarity against cached section descriptors routes each document chunk to the
+  right knowledge-base page. The design principle is "store once, project many ways": chunks
+  stay document-shaped, and a scored link table decides where they appear.
+- **AI video pipeline.** Idea → script → storyboard → frames → clips, orchestrated on Celery
+  (submit, poll, store to S3). It supports per-scene regeneration, version history,
+  cancellation, and continuity between scenes (each scene starts from the last frame of the
+  one before).
+- **Agents with an eval gate.** A tool-calling agent drives the video pipeline through chat.
+  A template-authoring agent writes a workflow, validates it, repairs it in a loop, and must
+  pass a 12-case evaluation before the template is accepted.
+- **Money that adds up.** Every model call is logged with its tokens, cost, latency and the
+  exact run that spent it. Credits use an append-only ledger with two buckets (a monthly
+  allowance that resets, and purchased credit that persists), plus a cost estimate before each
+  run.
+- **Tenancy and access.** A role hierarchy, workspace switching, admin impersonation with an
+  audit trail, and soft delete with ownership transfer in place of cascading hard deletes.
+- **Release safety.** Default-off feature flags, additive-only migrations, and a pytest guard
+  that aborts if a test run is ever pointed at a shared database.
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
-![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
-![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+<sub>Codebase size, not traffic: about 200 REST endpoints, about 99 Django ORM models, and a
+test suite past 2,600 tests.</sub>
 
-![Anthropic](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+**Across the team's other products**, I worked on creator-marketing, music and education backends:
 
-</div>
+- Instagram and Facebook automation driven by webhooks, with auto-replies, DMs, lead capture
+  and link analytics. Duplicate replies are blocked by a database uniqueness constraint, not by
+  application logic, because Meta forbids replying to the same comment twice.
+- An API gateway fronting 40+ endpoints across six applications, with shared auth, error
+  handling and retry.
+- Access-control fixes found in review, including an IDOR (a missing ownership check) that let
+  any logged-in user edit another user's records.
 
-## What I work on
+**Stack:** Python · Django · DRF · Celery · RabbitMQ · MySQL · Docker · Jenkins · AWS (EC2, S3)
+· Claude · OpenAI · Gemini · DeepSeek
 
-```mermaid
-flowchart LR
-    Product[AI product feature] --> API[Python API layer]
-    API --> Router[LLM provider router]
-    Router --> Claude[Claude]
-    Router --> OpenAI[OpenAI]
-    Router --> Gemini[Gemini]
-    Router --> DeepSeek[DeepSeek]
-    API --> RAG[RAG / brand knowledge]
-    API --> Agents[Tool-calling agents]
-    API --> Jobs[Celery async jobs]
-    Jobs --> Media[Image / video generation]
-    API --> Metering[Token, cost, latency audit trail]
-    API --> Flags[Feature flags and rollout controls]
-```
+</details>
 
-## Production experience
+<details>
+<summary><b>Vatsa Enterprises</b> · Freelance Full-Stack Engineer · Sep 2026 – present</summary>
 
-**tingg.ai — multi-tenant AI content SaaS (backend)**
+<br>
 
-| What | Detail |
+I build the API, storefront and admin panel for
+[vatsaenterprises.in](https://vatsaenterprises.in), a live e-commerce site: 134 commits across
+3 repositories.
+
+- **Payments and shipping.** PhonePe checkout via webhooks and a payment state machine, plus
+  Shiprocket tracking.
+- **Pricing rules on the server.** Delivery charges, order limits, cash-on-delivery rules and
+  discounts are now enforced server-side instead of trusted from the browser.
+- **Security.** Closed a critical NoSQL-injection path to admin access and fixed Google
+  sign-in flaws. Both are covered by an auth regression suite.
+- **Speed.** Lighthouse performance on catalogue pages went from 70 to 94 (median of 3 runs).
+  Layout shift fell from 0.75 to 0.024 by reserving grid space before products load. Also
+  added AVIF/WebP image variants.
+- **Order lifecycle.** Cancellations, returns, public order tracking and moderated reviews,
+  covered by 21 backend test suites in CI.
+
+**Stack:** Node.js · Express · MongoDB/Mongoose · Angular · TypeScript
+
+</details>
+
+<details>
+<summary><b>Vatsa Enterprises</b> · Software Developer Intern · Jan 2024 – Mar 2025</summary>
+
+<br>
+
+- Rebuilt a PHP/MySQL e-commerce platform, splitting catalogue, orders and reporting into
+  separate services.
+- Automated order processing, inventory updates and reporting with RPA scripts. By my own
+  estimate (not an instrumented measurement), this roughly halved the manual work.
+
+</details>
+
+## Incident log
+
+Real bugs from production systems I work on, each with its symptom, root cause and fix.
+Internal names have been removed.
+
+<details>
+<summary><b>"Generate all" made 14 images instead of 7</b> · double-submit race</summary>
+
+<br>
+
+|  |  |
 |---|---|
-| Scale | ~200 REST endpoints, ~99 ORM models, 6 Django apps, a suite of 2,600+ tests |
-| Orchestration | Multi-provider LLM routing with fallback across Claude, OpenAI, Gemini, DeepSeek |
-| Workflows | DAG-based engine for LLM, image and video nodes — idempotent reruns, cancellation, async execution |
-| Retrieval | RAG pipeline end to end: ingestion, chunking, extraction, tagging, distillation, weighted retrieval, context injection |
-| Agents | Tool-registry conversational agent; autonomous template-authoring agent with validate/repair loops |
-| Governance | Per-call token/cost/latency audit trails, append-only credit ledger, encrypted BYOK credentials |
+| **Symptom** | A double click on "generate all images" produced two of everything and spent credits twice. |
+| **Cause** | Two requests raced through the same check-then-create path. |
+| **Fix** | `select_for_update()` row locks plus idempotency keys, rolled out across generation, credit purchases and workflow runs. |
+| **Follow-up** | Retrying a *failed* clip then returned 409, because a stale lock was still held. I made the lock state-aware: it checks whether work is actually in flight before refusing. On a database error it fails open, which trades strictness for availability on purpose, and a test covers that behaviour. |
 
-**Freelance — [vatsaenterprises.in](https://vatsaenterprises.in)** · Node.js/Express/MongoDB + Angular
+</details>
 
-Payments (PhonePe), shipping integration, order and returns workflows, an auth-hardening pass that
-closed a critical NoSQL-injection admin takeover, and a Lighthouse performance push
-(catalogue 70 → 94, layout shift 0.75 → 0.02).
+<details>
+<summary><b>Video generation worked on dev, returned 500 in another environment</b> · a job running synchronously inside the web server</summary>
 
-## Public projects
+<br>
 
-| Project | Stack | What it shows |
-|---|---|---|
-| [Glove Compliance Detection](https://github.com/Dizzy099/Glove-Compliance-Detection-System-) | Python, YOLOv8 | Computer-vision safety pipeline: batch inference, JSON logging, annotated outputs |
-| [FastAPI Smart Banner](https://github.com/Dizzy099/Fastapi-Smart-Banner) | FastAPI | Clean API structure, request handling, deployment-ready patterns |
-| [adFusion](https://github.com/Dizzy099/adFusion) | Python, JS | Ad recommendation prototype: personalisation and ranking logic |
+|  |  |
+|---|---|
+| **Symptom** | Every video request returned 500, but only in one environment. |
+| **Cause** | `CELERY_TASK_ALWAYS_EAGER` ran a 480-second provider poll inline, inside a Gunicorn worker with a 120-second timeout. |
+| **Fix** | Turned eager mode off and made sure a live worker was consuming that queue. |
+| **Rejected** | Raising the Gunicorn timeout. That would have hidden the problem while tying up web workers for eight minutes per request. |
 
-## Writing
+</details>
 
-Notes from real production work, with proprietary details stripped out:
+<details>
+<summary><b>Uploaded documents stuck in "processing" forever</b> · two causes stacked</summary>
 
-- Designing a multi-provider LLM fallback chain: what breaks in production
-- RAG ingestion is five problems, not one — parse, chunk, extract, tag, distill
-- Metering LLM cost per call: token audit trails and credit ledgers
-- Agents that validate and repair their own output
+<br>
 
-## Background
+|  |  |
+|---|---|
+| **Cause 1** | Tasks were routed to a queue that no worker consumed. |
+| **Cause 2** | Tasks were acknowledged when picked up, so a worker crash silently lost the job. |
+| **Fix** | Queue names now come from one setting, so no task can be stranded by a hard-coded name. Also added `acks_late` with `reject_on_worker_lost`, a reaper that re-dispatches jobs stuck past 15 minutes, and an idempotent pipeline so retries are safe. |
 
-`GATE Qualified — Data Science & AI (2025)` · `Harvard CS50x` · `B.Tech CSE, 80%`
+</details>
 
-## Open to
+<details>
+<summary><b>Usage costs drifted from provider pricing</b> · billing correctness</summary>
 
-AI product teams where backend reliability matters as much as model capability — agent products,
-RAG systems, LLM platforms, AI SaaS, workflow automation, and Python-heavy backend teams building
-with LLMs.
+<br>
 
-<div align="center">
+|  |  |
+|---|---|
+| **Cause** | Prompt-cache tokens were priced at zero, and image pricing for some providers had drifted. |
+| **Fix** | Corrected the cache write and read rates. Built a dry-run-first reconciliation command to re-price past usage rows, plus a backfill that attributes each cost to its source. |
+| **Judgment call** | Rows with no recoverable source stayed unattributed rather than being guessed. New rows are attributed when written, so that gap cannot grow. |
 
-<img height="150" src="https://github-readme-stats.vercel.app/api?username=Dizzy099&show_icons=true&hide_border=true&title_color=1A56A8&icon_color=1A56A8&include_all_commits=true&count_private=true" alt="GitHub stats" />
-<img height="150" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dizzy099&layout=compact&hide_border=true&title_color=1A56A8&langs_count=8" alt="Top languages" />
+</details>
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=Dizzy099&hide_border=true&color=1A56A8&line=1A56A8&point=1A56A8&area=true" alt="Contribution graph" width="90%" />
+<details>
+<summary><b>"Only the last-updated automation rule fires"</b> · a regression test that can actually fail</summary>
 
-</div>
+<br>
+
+|  |  |
+|---|---|
+| **Cause** | The resolver ordered candidate rules by `updated_at` descending. |
+| **Fix** | Corrected the precedence and added five precedence tests. |
+| **Proof** | Putting the old ordering back makes all five tests fail, and restoring the fix makes them pass. The tests are proven able to catch the bug, not just to pass. |
+
+</details>
+
+<details>
+<summary><b>I reviewed my own impersonation feature before release</b> · and found five auth flaws</summary>
+
+<br>
+
+1. Impersonating a superuser escalated a platform admin to full superuser.
+2. "Stop impersonating" did not revoke the session token.
+3. The impersonation token was not checked for expiry.
+4. A platform admin could grant the role to themselves.
+5. An act-as session had no time limit.
+
+I reported all five with fixes before merge, and recommended shipping the feature's flags
+default-off.
+
+</details>
+
+## Projects
+
+Public work you can inspect. These are smaller than the production systems above, and they
+say plainly what works and what doesn't.
+
+<table>
+<tr>
+<td valign="top" width="50%">
+
+**chunk-router**<br>
+<sub>Python · ChromaDB · MiniLM embeddings</sub>
+
+Routes document chunks to a fixed taxonomy by cosine similarity, and **measures** whether a
+vector database is worth adding at all.
+
+- Semantic routing: 69% top-1, against 31% for a lexical baseline (small synthetic corpus)
+- Brute force still wins at 2,400 vectors; Chroma wins at 24,000
+- A rebuild from scratch of a pattern I shipped at work, with synthetic data
+
+<sub>Repository not yet public.</sub>
+<!-- TODO: once pushed, replace the line above with:
+[Repository →](https://github.com/Dizzy099/chunk-router) -->
+
+</td>
+<td valign="top" width="50%">
+
+**[Smart Banner](https://github.com/Dizzy099/Fastapi-Smart-Banner)**<br>
+<sub>FastAPI · Gemini 2.5 Flash · Pillow</sub>
+
+Upload a product photo and a logo, get a marketing banner back.
+
+- Gemini reads both images and plans the layout as JSON (positions and colour)
+- Pillow renders the banner: text wrapping, overlay, scaled logo
+- A second Gemini call critiques legibility. It is logged only for now and does not change
+  the render
+
+<sub>Prototype: session state is in-memory.</sub>
+
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+
+**[Glove Compliance Detection](https://github.com/Dizzy099/Glove-Compliance-Detection-System-)**<br>
+<sub>Python · YOLOv8 · OpenCV · multiprocessing</sub>
+
+Checks images of workers for gloved or bare hands.
+
+- YOLOv8 finds people; hand regions are estimated from each person's bounding box
+- A weighted colour, texture and edge score classifies each hand
+- Its own non-maximum suppression (merging overlapping detections), a batch CLI, JSON logs and
+  annotated output
+
+</td>
+<td valign="top" width="50%">
+
+**[adFusion](https://github.com/Dizzy099/adFusion)**<br>
+<sub>Django · DRF · React · TinyLlama</sub>
+
+Ad-copy generator that runs a local 1.1B-parameter model on CPU.
+
+- Parses the model's output into headline, description, CTA (call to action) and hashtags
+- Falls back to templates when the model's output can't be parsed
+- JWT auth and a campaign data model
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary>Older and learning repositories</summary>
+
+<br>
+
+- [questValor](https://github.com/Dizzy099/questValor): Flask app with Google OAuth2 sign-in
+  and a login-required decorator.
+- [CS50-s-SQL](https://github.com/Dizzy099/CS50-s-SQL): problem sets from Harvard's
+  databases course.
+- The remaining repositories are coursework and early front-end experiments from 2022–2024.
+
+</details>
+
+## Stack
+
+Listed only where I have shipped or built with it. Work and Projects say which is which.
+
+<p>
+  <img src="assets/stack-icons.svg" height="40" alt="Python, Django, FastAPI, MySQL, PostgreSQL, RabbitMQ, Docker, AWS, Jenkins, Git">
+</p>
+
+| Area | What I use |
+|---|---|
+| **Backend** | Python, Django, DRF, FastAPI, Flask · Node.js, Express |
+| **Data & async** | MySQL, PostgreSQL, MongoDB · Celery, RabbitMQ, cron · schema design, migrations, row locking, full-text search |
+| **AI / LLM** | Claude, OpenAI, Gemini, DeepSeek · fallback routing, tool calling, structured outputs, embeddings, retrieval, eval gates, cost accounting |
+| **Delivery** | Docker, Jenkins, AWS (EC2, S3), Gunicorn, Nginx · pytest, Ruff, Mypy, SonarQube, Trivy, Bandit |
+| **Integrations** | Meta Graph API, Spotify, WordPress, Telegram, PhonePe, Shiprocket, webhooks |
+| **Frontend** | React, Angular, TypeScript |
+
+<details>
+<summary>Education and credentials</summary>
+
+<br>
+
+- **B.Tech, Computer Science & Engineering**, Dr. Rammanohar Lohia Avadh University, 2021–2025
+- **GATE qualified**, Data Science & AI (2025)
+- **Harvard CS50x** (2023)
+- **5th rank**, college hackathon (2023)
+
+</details>
+
+## Contact
+
+I'm open to **backend and AI-backend roles**: teams where the LLM is one dependency among many,
+and the job is making the system around it dependable. I'm based in Noida and open to
+relocation.
+
+<p>
+  <a href="mailto:awanishmishra245@gmail.com"><img src="https://img.shields.io/badge/Email-awanishmishra245%40gmail.com-0969da?style=flat-square&logo=gmail&logoColor=white" alt="Email: awanishmishra245@gmail.com"></a>
+  <a href="https://www.linkedin.com/in/awanish-mishra-08aa0322a/"><img src="https://img.shields.io/badge/LinkedIn-awanish--mishra-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn: awanish-mishra"></a>
+</p>
+
+<sub>The hero and diagram SVGs are generated by <code>build_assets.py</code> in this repo. No
+third-party stats widgets, so nothing on this page breaks when a free service goes down.</sub>
