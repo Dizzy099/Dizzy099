@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 690" width="720" height="690" role="img" aria-labelledby="t d">
+<title id="t">The shape of the AI backends I build</title>
+<desc id="d">Six stages a request passes through: API with tenant auth, idempotency guard, workflow planner, provider router with fallback, async Celery workers, and a usage ledger.</desc>
+<style>
+  text { font-family: ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace; }
+  .h { font-size: 19px; font-weight: 700; }
+  .s { font-size: 15px; }
+  .n { font-size: 22px; font-weight: 700; }
+  .cap { font-size: 14px; letter-spacing: .08em; }
+  @media (prefers-reduced-motion: reduce) { .pulse { display: none; } }
+</style>
+<rect x="1" y="1" width="718" height="688" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+<text x="52" y="44" fill="#8b949e" class="cap">ONE REQUEST, SIX PLACES IT CAN FAIL</text>
+<rect x="52" y="74" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="118" fill="#58a6ff" class="n">01</text><text x="128" y="105" fill="#e6edf3" class="h">API + tenant auth</text><text x="128" y="130" fill="#8b949e" class="s">DRF · RBAC · workspace scoping · audit log</text><path d="M360.0 150v20" stroke="#30363d" stroke-width="2"/><path d="M354.0 166l6 7 6-7" fill="none" stroke="#30363d" stroke-width="2"/><rect x="52" y="176" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="220" fill="#58a6ff" class="n">02</text><text x="128" y="207" fill="#e6edf3" class="h">Idempotency guard</text><text x="128" y="232" fill="#8b949e" class="s">row locks + keys · state-aware retry</text><path d="M360.0 252v20" stroke="#30363d" stroke-width="2"/><path d="M354.0 268l6 7 6-7" fill="none" stroke="#30363d" stroke-width="2"/><rect x="52" y="278" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="322" fill="#58a6ff" class="n">03</text><text x="128" y="309" fill="#e6edf3" class="h">Workflow planner</text><text x="128" y="334" fill="#8b949e" class="s">DAG of LLM, image and video nodes</text><path d="M360.0 354v20" stroke="#30363d" stroke-width="2"/><path d="M354.0 370l6 7 6-7" fill="none" stroke="#30363d" stroke-width="2"/><rect x="52" y="380" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="424" fill="#58a6ff" class="n">04</text><text x="128" y="411" fill="#e6edf3" class="h">Provider router</text><text x="128" y="436" fill="#8b949e" class="s">Claude → OpenAI → Gemini → DeepSeek</text><path d="M360.0 456v20" stroke="#30363d" stroke-width="2"/><path d="M354.0 472l6 7 6-7" fill="none" stroke="#30363d" stroke-width="2"/><rect x="52" y="482" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="526" fill="#58a6ff" class="n">05</text><text x="128" y="513" fill="#e6edf3" class="h">Async workers</text><text x="128" y="538" fill="#8b949e" class="s">Celery · late acks · stuck-job reaper</text><path d="M360.0 558v20" stroke="#30363d" stroke-width="2"/><path d="M354.0 574l6 7 6-7" fill="none" stroke="#30363d" stroke-width="2"/><rect x="52" y="584" width="616" height="72" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/><text x="74" y="628" fill="#58a6ff" class="n">06</text><text x="128" y="615" fill="#e6edf3" class="h">Usage ledger</text><text x="128" y="640" fill="#8b949e" class="s">tokens · cost · latency per call · credits</text>
+<line x1="26" y1="110.0" x2="26" y2="620.0" stroke="#30363d" stroke-width="2" stroke-dasharray="3 5"/>
+<circle cx="26" cy="110.0" r="4" fill="#30363d"/><circle cx="26" cy="212.0" r="4" fill="#30363d"/><circle cx="26" cy="314.0" r="4" fill="#30363d"/><circle cx="26" cy="416.0" r="4" fill="#30363d"/><circle cx="26" cy="518.0" r="4" fill="#30363d"/><circle cx="26" cy="620.0" r="4" fill="#30363d"/>
+<circle class="pulse" r="6" fill="#3fb950" cx="26" cy="110.0">
+  <animate attributeName="cy" values="110.0;620.0;620.0" keyTimes="0;0.85;1" dur="5s" repeatCount="indefinite"/>
+  <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.85;1" dur="5s" repeatCount="indefinite"/>
+</circle>
+</svg>
